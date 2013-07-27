@@ -1,0 +1,6 @@
+1.MainScene Sprite数量不减少			(done)
+2.GameScene 星星闪烁太频繁				(done)
+3.排行榜								(done)
+4.暂停功能
+5.about功能
+6.红色闪烁问题
