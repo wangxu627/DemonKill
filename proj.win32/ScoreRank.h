@@ -21,29 +21,27 @@
 //
 /* ===================================================== */	
 
-#ifndef  __FILEUTILS_H__
-#define  __FILEUTILS_H__
+#include "cocos2d.h"
 
-class FileImpl;
-
-class FileUtils
+class ScoreRank : public cocos2d::CCNode
 {
 public:
-	FileUtils();
-
-	FileUtils(const char* name,const char* mode);
+	static ScoreRank* create(const char* aBGName,const char* aFontName);
+	ScoreRank(const char* aBGName,const char* aFontName);
+	void setScore(int aScore);
+	void setTotal(int aTotal);
 	
-	int read(char* output,int n);
-
-	int write(void* data,int len);
-
-	void close();
-
-	int state();
-
 private:
-	FileImpl* _pimpl;
-};;
+	cocos2d::CCSprite* mBG;
+	cocos2d::CCLabelTTF* mLBScoreTitle;
+	cocos2d::CCLabelTTF* mLBScore;
+	cocos2d::CCLabelTTF* mLBTotalTitle;
+	cocos2d::CCLabelTTF* mLBTotal;
+	cocos2d::CCLabelTTF* mLBNewRecord;
+
+};
 
 
-#endif
+
+
+

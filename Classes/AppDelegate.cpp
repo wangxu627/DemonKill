@@ -3,7 +3,11 @@
 #include "AppDelegate.h"
 #include "MainScene.h"
 #include "FileUtils.h"
+#include "CPPUtils.h"
+#include <vector>
+#include <string>
 
+using namespace std;
 USING_NS_CC;
 
 AppDelegate::AppDelegate()
@@ -34,37 +38,26 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	//
 	FileUtils* fu = new FileUtils("data.dat","r+");
-	char buffer[64];
-	int n = fu->read(buffer,64);
-	if(n == 0)
+	int i = 0;
+	if(fu->state() == 0)
 	{
-		for(int i = 0;i < 10;i++)
-		{
-			_scores[i] = 0;
-		}
-	}
-	else
-	{
-		int i = 0;
-		char* p = buffer;
-		char* q = NULL;
-		do 
-		{
-			q = strchr(p,';');
-			if(q != NULL)
-			{
-				char s[16] = {0};
-				memcpy(s,p,q - p);
-				_scores[i++] = atoi(s);
-			}
-			p = q + 1;
-		} while (q);
+		char buffer[64];
+		int n = fu->read(buffer,64);
+		fu->close();
 
-		for(;i < 10;i++)
+		vector<string> arr;
+		CPPUtils::split(buffer,';',arr);
+
+		for(;i < arr.size();i++)
 		{
-			_scores[i] = 0;
+			_scores[i] = atoi(arr[i].c_str());
 		}
 	}
+	for(;i < SCORE_LEN;i++)
+	{
+		_scores[i] = 0;
+	}
+
     return true;
 }
 

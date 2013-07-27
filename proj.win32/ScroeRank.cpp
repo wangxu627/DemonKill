@@ -21,77 +21,42 @@
 //
 /* ===================================================== */	
 
-#include "FileUtils.h"
-#include <stdio.h>
+#include "ScoreRank.h"
 
-class FileImpl
+using namespace cocos2d;
+
+ScoreRank* ScoreRank::create( const char* aBGName,const char* aFontName )
 {
-public:
-	FileImpl(const char* name,const char* mode)
-	{
-		mFS = fopen(name,mode);
-	}
-
-	int read(char* output,int n)
-	{
-		if(!mFS)
-		{
-			return 0;
-		}
-		return fread(output,1,n,mFS);
-	}
-
-	int write(void* data,int len)
-	{
-		if(!mFS)
-		{
-			return 0;
-		}
-		return fwrite(data,1,len,mFS);
-	}
-
-	void close()
-	{
-		if(!mFS)
-		{
-			return;
-		}
-		fclose(mFS);
-	}
-
-	int state()
-	{
-		return mFS == 0 ? 1 : 0;
-	}
-private:
-	FILE* mFS;
-};
-
-
-
-
-FileUtils::FileUtils(){}
-
-FileUtils::FileUtils(const char* name,const char* mode)
-			  :_pimpl(new FileImpl(name,mode))
-{}
-
-int FileUtils::read(char* output,int n)
-{
-	return _pimpl->read(output,n);
+	ScoreRank* ret = new ScoreRank(aBGName,aFontName);
+	ret->autorelease();
+	return ret;
 }
 
-int FileUtils::write( void* data,int len )
+ScoreRank::ScoreRank( const char* aBGName,const char* aFontName )
 {
-	return _pimpl->write(data,len);
+	mBG				= CCSprite::create(aBGName);
+	mLBScoreTitle	= CCLabelTTF::create("Scores",aFontName,32);
+	mLBScore		= CCLabelTTF::create("0",aFontName,32);
+	mLBTotalTitle	= CCLabelTTF::create("Total",aFontName,32);
+	mLBTotal		= CCLabelTTF::create("0",aFontName,32);
+
+	this->addChild(mBG);
+	this->addChild(mLBScoreTitle);
+	this->addChild(mLBScore);
+	this->addChild(mLBTotalTitle);
+	this->addChild(mLBTotal);
 }
 
-void FileUtils::close()
+void ScoreRank::setScore( int aScore )
 {
-	_pimpl->close();
+	char buf[16];
+	itoa(aScore,buf,10);
+	mLBScore->setString(buf);
 }
 
-int FileUtils::state()
+void ScoreRank::setTotal( int aTotal )
 {
-	return _pimpl->state();
+	char buf[16];
+	itoa(aTotal,buf,10);
+	mLBTotal->setString(buf);
 }
