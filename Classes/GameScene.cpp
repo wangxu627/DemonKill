@@ -22,6 +22,7 @@
 /* ===================================================== */	
 
 #include "GameScene.h"
+#include "Score.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -97,6 +98,19 @@ bool GameScene::init()
 
 		mHintLayer = CCLayer::create();
 		this->addChild(mHintLayer,tHintLayer);
+
+		mScores = ScoreRank::create("about-bg.png","80 Decibels");
+		mScores->setAnchorPoint(ccp(0.5,0));
+		mScores->setPosition(ccp(CCEGLView::sharedOpenGLView()->getFrameSize().width / 2,
+								 CCEGLView::sharedOpenGLView()->getFrameSize().height));
+		mScores->setVisible(false);
+		this->addChild(mScores,tHintLayer + 1);
+		
+		//mScores->setVisible(true);
+		//CCMoveBy* actionInner = CCMoveBy::create(0.8,ccp(0,
+		//					-CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.9));
+		//CCAction* action = CCEaseBounceOut::create(actionInner);
+		//mScores->runAction(action);
 
 
 		setupBoard();
@@ -200,13 +214,13 @@ void GameScene::OnUpdate( float dt )
 
 		for(int x = 0;x < kBoardWidth;x++)
 		{
-			char output[64];
-			sprintf(output,
-					"THE IN COLUMN is %d and %d and %d\n",
-					mNumGemsInColumn[x],
-					mFallingGems[x].size(),
-					mTimeSinceAddInColumn[x]);
-			::OutputDebugStringA(output);
+			//char output[64];
+			//sprintf(output,
+			//		"THE IN COLUMN is %d and %d and %d\n",
+			//		mNumGemsInColumn[x],
+			//		mFallingGems[x].size(),
+			//		mTimeSinceAddInColumn[x]);
+			//::OutputDebugStringA(output);
 			//CCLOG("ENTER OUTER ==> %d",mNumGemsInColumn[x]);
 			//CCLOG("ENTER OUTER2 ==> %d",mFallingGems[x].size());
 
@@ -604,12 +618,12 @@ void GameScene::updatePowerPlay()
 		{
 			mPowerPlayParticles->stopSystem();
 			mPowerPlayParticles = NULL;
-			/*
-			if( 'opengl' in sys.capabilities ) {
-				gPowerPlayLayer.stopAllActions();
-				gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
-			}
-			*/
+
+			mPowerPlayLayer->stopAllActions();
+			mPowerPlayLayer->runAction(CCSequence::create(CCFadeOut::create(0.5), 
+				CCCallFuncN::create(this,callfuncN_selector(GameScene::onRemoveFromParent)),
+				NULL));
+	
 		}
 		
 	}
@@ -939,8 +953,16 @@ void GameScene::createGameOver()
 			}
 		}
 	}
+	
+	Score::getInstance()->updateScore(mScore);
+	mScores->setScore(mScore);
+	mScores->setTotal(mScore);
+	mScores->setVisible(true);
+	CCMoveBy* actionInner = CCMoveBy::create(0.8,ccp(0,
+						-CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.9));
+	CCAction* action = CCEaseBounceOut::create(actionInner);
+	mScores->runAction(action);
 
-	//mHintLayer->removeAllChildren(true);
 	mHintLayer->removeAllChildrenWithCleanup(true);
 
 	removeShimmer();

@@ -30,6 +30,7 @@ public:
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
     static cocos2d::CCScene* scene();
     
+	
     // implement the "static node()" method manually
     CREATE_FUNC(MainScene);
 
@@ -37,13 +38,22 @@ private:
 	void OnUpdate(float dt);
 	void playCallback(cocos2d::CCObject* sender);
 	void aboutCallback(cocos2d::CCObject* sender);
-
+	void rankCallback(cocos2d::CCObject* sender);
+	void onDisappear();
+	void prepareDisappear(int aType);
+	
 private:
 	std::vector<tGem> mGemContainer;
 	cocos2d::CCLayer* mFallingLayer;
 	cocos2d::CCLayer* mBackLayer;
 	cocos2d::CCLayer* mMenuLayer;
 	cocos2d::CCParticleSystem* mStarParticles;
+	cocos2d::CCMenu* menu;
+	cocos2d::CCMenuItem* playItem;
+	cocos2d::CCMenuItem* rankItem;
+	cocos2d::CCMenuItem* aboutItem;
+	cocos2d::CCSprite* logo;
+	int mType;
 };
 
 #endif  // __HELLOWORLD_SCENE_H__

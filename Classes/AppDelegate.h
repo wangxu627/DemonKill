@@ -33,9 +33,7 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
-private:
-	static const int SCORE_LEN = 3;
-	int _scores[SCORE_LEN];
+
 };
 
 #endif  // __APP_DELEGATE_H__

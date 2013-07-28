@@ -2,10 +2,7 @@
 #include "CCEGLView.h"
 #include "AppDelegate.h"
 #include "MainScene.h"
-#include "FileUtils.h"
-#include "CPPUtils.h"
-#include <vector>
-#include <string>
+#include "Score.h"
 
 using namespace std;
 USING_NS_CC;
@@ -16,6 +13,7 @@ AppDelegate::AppDelegate()
 
 AppDelegate::~AppDelegate()
 {
+	Score::getInstance()->saveToFile();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -36,27 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     // run
     pDirector->runWithScene(pScene);
 
-	//
-	FileUtils* fu = new FileUtils("data.dat","r+");
-	int i = 0;
-	if(fu->state() == 0)
-	{
-		char buffer[64];
-		int n = fu->read(buffer,64);
-		fu->close();
-
-		vector<string> arr;
-		CPPUtils::split(buffer,';',arr);
-
-		for(;i < arr.size();i++)
-		{
-			_scores[i] = atoi(arr[i].c_str());
-		}
-	}
-	for(;i < SCORE_LEN;i++)
-	{
-		_scores[i] = 0;
-	}
+	Score::getInstance();
 
     return true;
 }

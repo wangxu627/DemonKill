@@ -12,7 +12,7 @@ public:
 	void saveToFile();
 	static Score* getInstance();
 	
-	static const int SCORE_LEN = 3;
+	static const int SCORE_LEN = 10;
 
 private:
 	int _scores[SCORE_LEN];

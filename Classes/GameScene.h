@@ -25,6 +25,7 @@
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"
+#include "ScoreRank.h"
 #include <vector>
 
 class GameScene : public cocos2d::CCLayer,public cocos2d::CCTouchDelegate
@@ -165,6 +166,8 @@ private:
 
 	cocos2d::CCLayerColor* mPowerPlayLayer;
 	cocos2d::CCParticleSystem* mPowerPlayParticles;
+
+	ScoreRank* mScores;
 
 	static const int kIntroTime = 1800;
 	static const int kGemSize = 60; // 40

@@ -15,7 +15,7 @@ Score::Score()
 	int i = 0;
 	if(fu->state() == 0)
 	{
-		char buffer[64];
+		char buffer[64] = {0};
 		int n = fu->read(buffer,64);
 		fu->close();
 
@@ -29,7 +29,7 @@ Score::Score()
 	}
 	for(;i < SCORE_LEN;i++)
 	{
-		_scores[i] = 0;
+		_scores[i] = -1;
 	}
 	delete fu;
 

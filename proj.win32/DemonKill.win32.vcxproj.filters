@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{11bb464a-d55b-4f20-a40f-15c6deb28bc2}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{6aa403eb-3025-49b9-9fb0-df95b91e7c75}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{de70bcb7-2df9-483d-a295-3afd81d4c963}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+    <Filter Include="resource\particles">
+      <UniqueIdentifier>{8c6a9415-f97a-4ee8-97e8-2a5634bdc950}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\DemonKill.ico">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\about-bg.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\about-fade.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-about.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-about-down.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-done.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-done-down.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-play.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\btn-play-down.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\logo.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\particles\bg-stars.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\falling-gem.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\power-play.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\taken-gem.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\taken-gem.png">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\taken-hrow.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\particles\taken-vrow.plist">
+      <Filter>resource\particles</Filter>
+    </None>
+    <None Include="..\Resources\clickme-down.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\clickme.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\crystals.plist">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\crystals.pvr.ccz">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\background.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\go.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\header.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\iPhone5-padding.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\timer.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\background800.png">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DemonKill.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

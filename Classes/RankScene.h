@@ -2,6 +2,7 @@
 #define __RANKSCENE_H__
 
 #include "cocos2d.h"
+#include "Score.h"
 
 class RankScene : public cocos2d::CCLayer
 {
@@ -18,9 +19,13 @@ public:
 private:
 	
 private:
-	cocos2d::CCSprite* golden;
-	cocos2d::CCSprite* silver;
-	cocos2d::CCSprite* brozen;
+	//cocos2d::CCSprite* golden;
+	//cocos2d::CCSprite* silver;
+	//cocos2d::CCSprite* brozen;
+
+	cocos2d::CCSprite* titles[Score::SCORE_LEN];
+	cocos2d::CCSprite* items[Score::SCORE_LEN];
+
 
 	int mType;
 };

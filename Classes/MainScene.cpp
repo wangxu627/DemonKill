@@ -1,5 +1,6 @@
 #include "MainScene.h"
 #include "GameScene.h"
+#include "RankScene.h"
 #include <stdlib.h>
 
 using namespace cocos2d;
@@ -54,21 +55,27 @@ bool MainScene::init()
 		background->setAnchorPoint(ccp(0,0));
 		this->mBackLayer->addChild(background);
 
-		CCMenuItemImage* playItem = CCMenuItemImage::create("btn-play.png","btn-play-down.png");
+		playItem = CCMenuItemImage::create("btn-play.png","btn-play-down.png");
 		playItem->setScale(0);
 		playItem->setTarget(this,menu_selector(MainScene::playCallback));
-		playItem->setPositionY(CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.4);
+		playItem->setPositionY(CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.45);
 
-		CCMenuItemImage* aboutItem = CCMenuItemImage::create("btn-about.png","btn-about-down.png");
+		rankItem = CCMenuItemImage::create("btn-about.png","btn-about-down.png");
+		rankItem->setScale(0);
+		rankItem->setTarget(this,menu_selector(MainScene::rankCallback));
+		rankItem->setPositionY(CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.286);
+
+		aboutItem = CCMenuItemImage::create("btn-about.png","btn-about-down.png");
 		aboutItem->setScale(0);
 		aboutItem->setTarget(this,menu_selector(MainScene::aboutCallback));
-		aboutItem->setPositionY(CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.2);
+		aboutItem->setPositionY(CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.15);
 
-		CCMenu* menu = CCMenu::create(playItem,aboutItem,NULL);
+		menu = CCMenu::create(playItem,rankItem,aboutItem,NULL);
 		menu->setPositionY(0);
+		//menu->setScale(0);
 		this->mMenuLayer->addChild(menu);
 
-		CCSprite* logo = CCSprite::create("logo.png");
+		logo = CCSprite::create("logo.png");
 		logo->setScale(0.0);
 		logo->setPosition(ccp(CCEGLView::sharedOpenGLView()->getFrameSize().width * 0.5,
 			CCEGLView::sharedOpenGLView()->getFrameSize().height * 0.7));
@@ -79,13 +86,16 @@ bool MainScene::init()
 		
 		CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("crystals.plist");
 
-		CCScaleTo* scale = CCScaleTo::create(0.2,0.75);
-		CCScaleTo* scale2 = CCScaleTo::create(0.2,0.75);
-		CCScaleTo* scale3 = CCScaleTo::create(0.2,0.75);
+		CCScaleTo* scale = CCScaleTo::create(0.2,0.65);
+		CCScaleTo* scale2 = CCScaleTo::create(0.2,0.65);
+		CCScaleTo* scale3 = CCScaleTo::create(0.2,0.65);
+		CCScaleTo* scale4 = CCScaleTo::create(0.2,0.65);
 		//scale->setTarget(logo);
 		logo->runAction(scale);
 		playItem->runAction(scale2);
-		aboutItem->runAction(scale3);
+		rankItem->runAction(scale3);
+		aboutItem->runAction(scale4);
+		//menu->runAction(scale2);
 
 		schedule(schedule_selector(MainScene::OnUpdate));
 
@@ -138,15 +148,61 @@ void MainScene::OnUpdate(float dt)
 	}
 }
 
+//void MainScene::onExit()
+//{
+//	//CCScaleTo* scale = CCScaleTo::create(0.2,0.0);
+//	/*CCScaleTo* scale2 = CCScaleTo::create(0.2,0.0);
+//	CCScaleTo* scale3 = CCScaleTo::create(0.2,0.0);
+//	CCScaleTo* scale4 = CCScaleTo::create(0.2,0.0);*/
+//	//scale->setTarget(logo);
+//	menu->runAction(scale);
+//	//playItem->runAction(scale2);
+//	//rankItem->runAction(scale3);
+//	//aboutItem->runAction(scale4);
+//}
+
 void MainScene::playCallback(cocos2d::CCObject* sender)
 {
-	CCScene* gameScene = GameScene::scene();
-	//CCScene* scene = CCScene::create
-	CCDirector::sharedDirector()->replaceScene(gameScene);
+	prepareDisappear(2);
 }
 void MainScene::aboutCallback(cocos2d::CCObject* sender)
 {
 
 }
+void MainScene::rankCallback(cocos2d::CCObject* sender)
+{
+	prepareDisappear(1);
+}
+
+void MainScene::onDisappear()
+{
+	if(mType == 1)
+	{
+		CCScene* rankScene = RankScene::scene();
+		CCDirector::sharedDirector()->replaceScene(rankScene);
+	}
+	else if(mType == 2)
+	{
+		CCScene* gameScene = GameScene::scene();
+		CCDirector::sharedDirector()->replaceScene(gameScene);
+	}
+}
+
+void MainScene::prepareDisappear(int aType)
+{
+	CCScaleTo* scale = CCScaleTo::create(0.2,0.0);
+	CCScaleTo* scale2 = CCScaleTo::create(0.2,0.0);
+	CCScaleTo* scale3 = CCScaleTo::create(0.2,0.0);
+	CCScaleTo* scale4 = CCScaleTo::create(0.2,0.0);
+	CCCallFunc* callback = CCCallFunc::create(this,callfunc_selector(MainScene::onDisappear));
+	logo->runAction(scale);
+	playItem->runAction(scale2);
+	rankItem->runAction(scale3);
+	aboutItem->runAction(CCSequence::create(scale4,callback,NULL));
+
+	mType = aType;
+}
+
+
 
 
